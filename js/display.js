@@ -7,12 +7,17 @@ var DataList = React.createClass({
                 );
         });
       return (
+          <div>
+          <h2>{dataNodes.length}&#47;{rawData.length} Records</h2>
           <table className="dataList table table-hover table-striped">
           <th>Lat</th>
           <th>Lng</th>
           <th>Total Savings Potential</th>
+          <tbody>
             {dataNodes}
+            </tbody>
           </table>
+          </div>
         );
     }
 });
@@ -31,13 +36,13 @@ var DataEntry = React.createClass({
 });
 
 var display = {
-    update: function() {
+    update: function(data) {
         React.render(
-            <DataList data={heatData.data}/>,
+            <DataList data={data} />,
             document.getElementById('dataTable')
         );
     },
 };
 
+display.update(rawData);
 
-display.update();

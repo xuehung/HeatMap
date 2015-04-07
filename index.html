@@ -10,61 +10,45 @@
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
         <link rel="stylesheet" href="http://www.patrick-wied.at/static/heatmapjs/assets/css/example-commons.css" />
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     </head>
     <body>
 
 
         <h1>HeatMap of Potential Savings in Biggs, CA</h1>
-        <div class="demo-wrapper" style="width: 800px; heigth: 600px; margin: 100px auto;">
-            <div class="heatmap" id="map-canvas"></div>
+
+        <div class="row">
+            <div class="col-xs-7">
+                <!-- Map -->
+                <div class="demo-wrapper" style="width: 600px; heigth: 400px; margin: 30px auto;">
+                    <div class="heatmap" id="map-canvas"></div>
+                </div>
+
+                <!-- gradient bar -->
+                <div class="text-center">
+                    <span id="gradient-min"></span>
+                    <canvas id="gradient" width="500" height="20" style="border:1px solid #000;"> </canvas>
+                    <span id="gradient-max"></span>
+                </div>
+                <!-- range bar -->
+                <div class="text-center">
+                    <h3>Current Min: <span id="min"></span></h3>
+                </div>
+                <input type="range" style="margin: 0 auto; width: 400px;" name="range" id="range" value="0" min="0" max="1000">
+
+            </div>
+            <div class="col-xs-5">
+                <!-- Table -->
+                <div id="dataTable" style="margin: 20px 50px;"></div>
+            </div>
         </div>
-        <div id="dataTable" style="margin: 100px 300px;"></div>
-
-
-
-
 
         <script src="js/display.js" type="text/jsx;harmony=true"></script>
+        <script src="js/eeme.heatmap.js"></script>
         <script>
             $(function(){
-
-                var baseLayer = L.tileLayer(
-                'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-                    attribution: '...',
-                    maxZoom: 18
-                }
-                );
-
-                var cfg = {
-                    // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-                    // if scaleRadius is false it will be the constant radius used in pixels
-                    "radius": 100,
-                    "maxOpacity": .8,
-                    // scales the radius based on map zoom
-                    "scaleRadius": false,
-                    // if set to false the heatmap uses the global maximum for colorization
-                    // if activated: uses the data maximum within the current map boundaries
-                    //   (there will always be a red spot with useLocalExtremas true)
-                    "useLocalExtrema": true,
-                    // which field name in your data represents the latitude - default "lat"
-                    latField: 'lat',
-                    // which field name in your data represents the longitude - default "lng"
-                    lngField: 'lng',
-                    // which field name in your data represents the data value - default "value"
-                    valueField: 'count'
-                    };
-
-                    var heatmapLayer = new HeatmapOverlay(cfg);
-
-                    var map = new L.Map('map-canvas', {
-                        center: new L.LatLng(39.392454, -121.67863),
-                        zoom: 14,
-                        minZoom: 13,
-                        layers: [baseLayer, heatmapLayer]
-                        });
-
-                        heatmapLayer.setData(heatData);
-                        });
-                    </script>
-                </body>
-            </html>
+                EemeHeatMap.init(rawData);
+            });
+        </script>
+    </body>
+</html>
