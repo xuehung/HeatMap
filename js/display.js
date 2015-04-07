@@ -1,3 +1,9 @@
+/*
+ * Author: Hsueh-Hung Cheng (xuehung@gmail.com)
+ * This file use react.js to generate the table. It will be
+ * updated whenever the display.update() is invoked
+ */
+
 var DataList = React.createClass({
   render: function() {
     var dataNodes = this.props.data.map(function (entry) {

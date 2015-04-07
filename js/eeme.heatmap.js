@@ -1,7 +1,14 @@
+/*
+ * Author: Hsueh-Hung Cheng
+ * This is for the evaluation
+ */
+
 var EemeHeatMap = {
+    // called when the page is loaded
     init: function(data) {
         drawGradient();
 
+        // initialize the heatmap
         EemeHeatMap.baseLayer = L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
             attribution: '...',
@@ -44,6 +51,8 @@ var EemeHeatMap = {
 
 
 
+        // find the min and max value from rawData
+        // it could be used for gradient bar display and range for slider
         var max = -1;
         var min = 100000;
 
@@ -60,6 +69,7 @@ var EemeHeatMap = {
         $("#gradient-max").html(max);
         $("#min").html(min);
 
+        // set the event handlers
         $('#range').on("change mousemove", function() {
             var currMin = parseInt($(this).val());
             var filteredData = {
@@ -78,6 +88,7 @@ var EemeHeatMap = {
         });
 
 
+        // show the map in the very beginning
         refreshMap(EemeHeatMap.heatmapLayer, {
             min: min,
             max: max,
@@ -91,6 +102,7 @@ function refreshMap(heatmapLayer, data) {
     heatmapLayer.setData(data);
 }
 
+// use canvas to draw the gradient, better than image
 function drawGradient() {
     var c = document.getElementById("gradient");
     var ctx = c.getContext("2d");

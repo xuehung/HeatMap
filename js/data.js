@@ -160,14 +160,3 @@ var rawData = [{
     "lng": -121.67213
 }, ];
 
-
-
-var testData = {
-    max: 1400,
-    min: 1200,
-    data: [{
-        lat: 39.392454,
-        lng: -121.67863,
-        count: 1284.1
-    }, ]
-};
